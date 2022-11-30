@@ -9,15 +9,16 @@ import { Modal, Input, Row, Checkbox, Button } from "@nextui-org/react";
 import { Loading } from "@nextui-org/react";
 
 const Login = () => {
-    const navigate = useNavigate();
+   
+  const navigate = useNavigate();
     useEffect(() => {
         fetchItems();
       }, []);
-    
+      const [visible, setVisible] = React.useState(false);
       const [items, setItems] = useState([]);
       const fetchItems = async () => {
         const data = await fetch(
-          "http://127.0.0.1:5000/api/user"
+          "http://127.0.0.1:5000/api/user",{method: "POST", body: JSON.stringfy({"username": username, "password": password})}
         );
           console.log(data)
         const items = await data.json();
@@ -26,7 +27,7 @@ const Login = () => {
       };
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const [visible, setVisible] = React.useState(false);
+  
   const [authenticated, setauthenticated] = useState(
     localStorage.getItem(localStorage.getItem("authenticated") || false)
   );
